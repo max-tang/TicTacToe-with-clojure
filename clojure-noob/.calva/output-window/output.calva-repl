@@ -153,17 +153,17 @@ clj꞉clojure-noob.core꞉> 
 clj꞉clojure-noob.core꞉> 
 (defn initBoard []
   (vector-of :int 0 0 0 0 0 0 0 0 0))
-#'clojure-noob.tictaktoe/initBoard
-clj꞉clojure-noob.tictaktoe꞉> 
+#'clojure-noob.tictactoe/initBoard
+clj꞉clojure-noob.tictactoe꞉> 
 (def board (initBoard))
-#'clojure-noob.tictaktoe/board
-clj꞉clojure-noob.tictaktoe꞉> 
+#'clojure-noob.tictactoe/board
+clj꞉clojure-noob.tictactoe꞉> 
 println (board)
-; Execution error (AbstractMethodError) at clojure-noob.tictaktoe/eval7222 (form-init14431131630309096032.clj:161).
+; Execution error (AbstractMethodError) at clojure-noob.tictactoe/eval7222 (form-init14431131630309096032.clj:161).
 ; Receiver class clojure.core.Vec does not define or inherit an implementation of the resolved method 'abstract java.lang.Object invoke()' of interface clojure.lang.IFn.
-clj꞉clojure-noob.tictaktoe꞉> 
+clj꞉clojure-noob.tictactoe꞉> 
 (*ns*)
-; Execution error (ClassCastException) at clojure-noob.tictaktoe/eval7224 (form-init14431131630309096032.clj:165).
+; Execution error (ClassCastException) at clojure-noob.tictactoe/eval7224 (form-init14431131630309096032.clj:165).
 ; class clojure.lang.Namespace cannot be cast to class clojure.lang.IFn (clojure.lang.Namespace and clojure.lang.IFn are in unnamed module of loader 'app')
-clj꞉clojure-noob.tictaktoe꞉> 
+clj꞉clojure-noob.tictactoe꞉> 
 ; nREPL Connection was closed

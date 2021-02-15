@@ -1,4 +1,4 @@
-(ns clojure-noob.tictaktoe)
+(ns clojure-noob.tictactoe)
 
 ;; 0 1 2
 ;; 3 4 5
@@ -27,12 +27,23 @@
     (= sign 1) 2
     (= sign 2) 1))
 
+(defn printBoard [board]
+  (println (subvec board 0 3))
+  (println (subvec board 3 6))
+  (println (subvec board 6 9))
+  (println))
+
 (defn canWin? [board sign]
   "Is it possible for current player to win"
+  (printBoard board)
   (def nextSign (nextPlayerSign sign))
   (cond
     (win? board sign) true
     :else
-    (reduce #(or
-              (not (vacant board %))
-              (not (canWin? (place board % nextSign) nextSign))))))
+    (reduce (fn [flag pos]
+              (and flag
+                   (not
+                    (and
+                     (vacant? board pos)
+                     (canWin? (place board pos nextSign) nextSign)))))
+            true (into [] (range 0 9)))))
