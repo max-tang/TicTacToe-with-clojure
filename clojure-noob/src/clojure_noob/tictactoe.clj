@@ -30,9 +30,3 @@
 
 (defn gameOver? [board]
   (or (full? board) (win? board 1) (win? board 2)))
-
-(defn printBoard [board]
-  (println (subvec board 0 3))
-  (println (subvec board 3 6))
-  (println (subvec board 6 9))
-  (println))

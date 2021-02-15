@@ -6,31 +6,34 @@
     (= sign 1) 2
     (= sign 2) 1))
 
-(defn canWin? [board sign]
-  "Is it possible for current player to win"
+(defn maxScore [board sign]
+  (def isVacant? (partial vacant? board))
+  (def vacancies (filter isVacant? allPos))
   (def nextSign (nextPlayerSign sign))
   (cond
-    (win? board sign) true
-    :else
-    (reduce (fn [flag pos]
-              (and flag
-                   (cond
-                     (vacant? board pos) (not (canWin? (place board pos nextSign) nextSign))
-                     :else true)))
-            true allPos)))
+    (win? board sign) 100
+    (full? board) 0
+    :else (reduce (fn [currentScore pos]
+                    (let [nextBoard1 (place board pos nextSign)]
+                      (min currentScore
+                           (- 0 (maxScore nextBoard1 nextSign)))))
+                  100
+                  vacancies)))
 
 (defn bestMove [board sign]
   (def isVacant? (partial vacant? board))
   (def vacancies (filter isVacant? allPos))
-  (def winningPos (filter (fn [pos]
-                            (def boardAfter (place board pos sign))
-                            (canWin? boardAfter sign)) vacancies))
-  (cond
-    (> (count winningPos) 0) (nth winningPos 0)
-    (> (count vacancies) 0) (nth vacancies 0)
-    :else -1))
+
+  (def scores (map (fn [pos] [(maxScore (place board pos sign) sign) pos]) vacancies))
+  ;; (println scores)
+
+  (second
+   (reduce (fn [best curr]
+             (if (< (nth best 0) (nth curr 0)) curr best))
+           [-200 -1]
+           scores)))
 
 (defn aiMove [board sign]
-  (def aiMovePos (bestMove board 2))
-  (def boardAfter (place board aiMovePos 2))
+  (def aiMovePos (bestMove board sign))
+  (def boardAfter (place board aiMovePos sign))
   boardAfter)
