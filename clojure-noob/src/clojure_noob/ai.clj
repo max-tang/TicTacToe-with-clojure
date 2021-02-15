@@ -8,7 +8,6 @@
 
 (defn canWin? [board sign]
   "Is it possible for current player to win"
-  (printBoard board)
   (def nextSign (nextPlayerSign sign))
   (cond
     (win? board sign) true
