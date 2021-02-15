@@ -7,7 +7,7 @@
   (vector-of :int 0 0 0 0 0 0 0 0 0))
 
 (defn vacant? [board pos]
-  (= (nth board pos)) 0)
+  (= (nth board pos) 0))
 
 (defn place [board pos sign]
   (assoc board pos sign))
@@ -22,28 +22,14 @@
   (def allWithSign? (partial allWith? board sign))
   (some allWithSign? combs))
 
-(defn nextPlayerSign [sign]
-  (cond
-    (= sign 1) 2
-    (= sign 2) 1))
+(def allPos (into [] (range 0 9)))
+
+(defn full? [board]
+  (def posVacant (partial vacant? board))
+  (not (some posVacant allPos)))
 
 (defn printBoard [board]
   (println (subvec board 0 3))
   (println (subvec board 3 6))
   (println (subvec board 6 9))
   (println))
-
-(defn canWin? [board sign]
-  "Is it possible for current player to win"
-  (printBoard board)
-  (def nextSign (nextPlayerSign sign))
-  (cond
-    (win? board sign) true
-    :else
-    (reduce (fn [flag pos]
-              (and flag
-                   (not
-                    (and
-                     (vacant? board pos)
-                     (canWin? (place board pos nextSign) nextSign)))))
-            true (into [] (range 0 9)))))

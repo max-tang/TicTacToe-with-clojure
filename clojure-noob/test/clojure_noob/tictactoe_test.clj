@@ -24,21 +24,7 @@
   ;; 2 1 0
   ;; 0 1 0
   (testing "Not a winning state for the anther player"
-    (def board [0 1 2 2 1 0 0 1 0])
+    (def board [0 1 2
+                2 1 0
+                0 1 0])
     (is (not= (win? board 2) true))))
-
-(deftest canWin?Test
-  ;; 0 1 2
-  ;; 2 1 0
-  ;; 0 1 0
-  (testing "Test if current player can win after this move"
-    (def board [0 1 2 2 1 0 0 1 0])
-    (is (= (canWin? board 1) true))))
-
-(deftest canWin?Test2
-      ;; 1 1 2
-      ;; 2 1 0
-      ;; 0 2 0
-  (testing "Test if current player can win after this move"
-    (def board [1 1 2 2 1 0 0 2 0])
-    (is (= (canWin? board 2) false))))
