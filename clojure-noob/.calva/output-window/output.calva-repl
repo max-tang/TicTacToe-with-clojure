@@ -1,0 +1,169 @@
+; This is the Calva evaluation results output window.
+; TIPS: The keyboard shortcut `ctrl+alt+c o` shows and focuses this window
+;   when connected to a REPL session.
+; Please see https://calva.io/output/ for more info.
+; Happy coding! ♥️
+
+; Jacking in...
+; Starting Jack-in Terminal: lein update-in :dependencies conj '[nrepl,"0.8.3"]' -- update-in :plugins conj '[cider/cider-nrepl,"0.25.8"]' -- update-in '[:repl-options,:nrepl-middleware]' conj '["cider.nrepl/cider-middleware"]' -- repl :headless
+; Hooking up nREPL sessions...
+; Connected session: clj
+; TIPS: 
+;   - You can edit the contents here. Use it as a REPL if you like.
+;   - `alt+enter` evaluates the current top level form.
+;   - `ctrl+enter` evaluates the current form.
+;   - `alt+up` and `alt+down` traverse up and down the REPL command history
+;      when the cursor is after the last contents at the prompt
+;   - Clojure lines in stack traces are peekable and clickable.
+clj꞉clojure-noob.core꞉>  ; Use `alt+enter` to evaluate
+; Jack-in done.
+clj꞉clojure-noob.core꞉> 
+(defn Example []
+  (println 'Inside Example)
+  (loop [i 0]
+    (when (< i 5)
+      (println i)
+      (recur (inc i)))))
+#'clojure-noob.core/Example
+clj꞉clojure-noob.core꞉> 
+(Example)
+Inside #function[clojure-noob.core/Example]
+0
+1
+2
+3
+4
+nil
+clj꞉clojure-noob.core꞉> 
+(defn Example []
+  (println "Inside Example")
+  (loop [i 0]
+    (when (< i 5)
+      (println i)
+      (recur (inc i)))))
+#'clojure-noob.core/Example
+clj꞉clojure-noob.core꞉> 
+(Example)
+Inside Example
+0
+1
+2
+3
+4
+nil
+clj꞉clojure-noob.core꞉> 
+(defn Example []
+  (loop [i 0]
+    (println "Inside Example")
+    (when (< i 5)
+      (println i)
+      (recur (inc i)))))
+#'clojure-noob.core/Example
+clj꞉clojure-noob.core꞉> 
+(Example)
+Inside Example
+0
+Inside Example
+1
+Inside Example
+2
+Inside Example
+3
+Inside Example
+4
+Inside Example
+nil
+clj꞉clojure-noob.core꞉> 
+
+(defn initBoard []
+  (vector-of :int 0 0 0 0 0 0 0 0 0))
+#'clojure-noob.core/initBoard
+clj꞉clojure-noob.core꞉> 
+(initBoard)
+[0 0 0 0 0 0 0 0 0]
+clj꞉clojure-noob.core꞉> 
+(defn place [board pos sign]
+  (assoc board pos sign))
+#'clojure-noob.core/place
+clj꞉clojure-noob.core꞉> 
+(place 0 1)
+; Execution error (ArityException) at clojure-noob.core/eval7163 (form-init14431131630309096032.clj:89).
+; Wrong number of args (2) passed to: clojure-noob.core/place
+clj꞉clojure-noob.core꞉> 
+(def board (initBoard))
+#'clojure-noob.core/board
+clj꞉clojure-noob.core꞉> 
+(place board 0 1)
+[1 0 0 0 0 0 0 0 0]
+clj꞉clojure-noob.core꞉> 
+(def board (place board 0 1))
+#'clojure-noob.core/board
+clj꞉clojure-noob.core꞉> 
+(board)
+; Execution error (AbstractMethodError) at clojure-noob.core/eval7167 (form-init14431131630309096032.clj:102).
+; Receiver class clojure.core.Vec does not define or inherit an implementation of the resolved method 'abstract java.lang.Object invoke()' of interface clojure.lang.IFn.
+clj꞉clojure-noob.core꞉> 
+(place board 1 1)
+[1 1 0 0 0 0 0 0 0]
+clj꞉clojure-noob.core꞉> 
+(defn win? [board]
+  (mapv board [3 4 5]))
+#'clojure-noob.core/win?
+clj꞉clojure-noob.core꞉> 
+(win board)
+; Syntax error compiling at (.calva/output-window/output.calva-repl:113:1).
+; Unable to resolve symbol: win in this context
+clj꞉clojure-noob.core꞉> 
+(win? board)
+[0 0 0]
+clj꞉clojure-noob.core꞉> 
+(println board)
+[1 0 0 0 0 0 0 0 0]
+nil
+clj꞉clojure-noob.core꞉> 
+(defn win? [board sign]
+  (every? true? (map = (mapv board [3 4 5]) [sign sign sign])))
+#'clojure-noob.core/win?
+clj꞉clojure-noob.core꞉> 
+(win? board 1)
+false
+clj꞉clojure-noob.core꞉> 
+(win? board 0)
+true
+clj꞉clojure-noob.core꞉> 
+(def combs [[0 1 2] [3 4 5] [6 7 8] [0 3 6] [1 4 7] [2 5 8] [0 4 8] [2 4 6]])
+#'clojure-noob.core/combs
+clj꞉clojure-noob.core꞉> 
+(println combs)
+[[0 1 2] [3 4 5] [6 7 8] [0 3 6] [1 4 7] [2 5 8] [0 4 8] [2 4 6]]
+nil
+clj꞉clojure-noob.core꞉> 
+
+(println board)
+; Syntax error compiling at (.calva/output-window/output.calva-repl:142:1).
+; Unable to resolve symbol: board in this context
+clj꞉clojure-noob.core꞉> 
+(println board)
+; Syntax error compiling at (.calva/output-window/output.calva-repl:146:1).
+; Unable to resolve symbol: board in this context
+clj꞉clojure-noob.core꞉> 
+(def board (initBoard))
+; Syntax error compiling at (.calva/output-window/output.calva-repl:150:12).
+; Unable to resolve symbol: initBoard in this context
+clj꞉clojure-noob.core꞉> 
+(defn initBoard []
+  (vector-of :int 0 0 0 0 0 0 0 0 0))
+#'clojure-noob.tictaktoe/initBoard
+clj꞉clojure-noob.tictaktoe꞉> 
+(def board (initBoard))
+#'clojure-noob.tictaktoe/board
+clj꞉clojure-noob.tictaktoe꞉> 
+println (board)
+; Execution error (AbstractMethodError) at clojure-noob.tictaktoe/eval7222 (form-init14431131630309096032.clj:161).
+; Receiver class clojure.core.Vec does not define or inherit an implementation of the resolved method 'abstract java.lang.Object invoke()' of interface clojure.lang.IFn.
+clj꞉clojure-noob.tictaktoe꞉> 
+(*ns*)
+; Execution error (ClassCastException) at clojure-noob.tictaktoe/eval7224 (form-init14431131630309096032.clj:165).
+; class clojure.lang.Namespace cannot be cast to class clojure.lang.IFn (clojure.lang.Namespace and clojure.lang.IFn are in unnamed module of loader 'app')
+clj꞉clojure-noob.tictaktoe꞉> 
+; nREPL Connection was closed
