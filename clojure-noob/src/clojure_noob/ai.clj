@@ -29,3 +29,8 @@
     (> (count winningPos) 0) (nth winningPos 0)
     (> (count vacancies) 0) (nth vacancies 0)
     :else -1))
+
+(defn aiMove [board sign]
+  (def aiMovePos (bestMove board 2))
+  (def boardAfter (place board aiMovePos 2))
+  boardAfter)
