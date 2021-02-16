@@ -17,8 +17,9 @@
   (let [isVacant? (partial vacant? board)
         vacancies (filter isVacant? allPos)
         nextSign (nextPlayerSign sign)
-        compF (if (= sign 2) < >)
-        initScore (if (= sign 2) [-101 -1] [101 -1])]
+        maximize? (= sign 2)
+        compF (if maximize? < >)
+        initScore (if maximize? [-101 -1] [101 -1])]
 
     (if (gameOver? board)
       (terminateStateScore board sign)
