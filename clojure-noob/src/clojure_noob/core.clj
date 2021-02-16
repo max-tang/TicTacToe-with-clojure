@@ -3,6 +3,18 @@
   (:require [clojure-noob.ai :refer :all])
   (:gen-class))
 
+(defn toPrintLetter [c]
+  (cond
+    (= c 0) "."
+    (= c 1) "x"
+    (= c 2) "o"))
+
+(defn printBoard [board]
+  (println (map toPrintLetter (subvec board 0 3)))
+  (println (map toPrintLetter (subvec board 3 6)))
+  (println (map toPrintLetter (subvec board 6 9)))
+  (println))
+
 (defn humanGame []
   (loop [board (initBoard) sign 1]
     (printBoard board)
