@@ -21,30 +21,21 @@
 (defn minimax [board sign]
   (let [isVacant? (partial vacant? board)
         vacancies (filter isVacant? allPos)
-        nextSign (nextPlayerSign sign)]
+        nextSign (nextPlayerSign sign)
+        compF (if (= sign 2) < >)
+        initScore (if (= sign 2) [-101 -1] [101 -1])]
 
-    (cond (= sign 2) (cond
-                       (win? board nextSign) [-100 -1]
-                       (win? board sign) [100 -1]
-                       (full? board) [0 -1]
-                       :else (reduce (fn [currentScore pos]
-                                       (def nextBoard2 (place board pos sign))
-                                       (def s (minimax nextBoard2 nextSign))
-                                       (println "maximize:" (toPrintLetter sign) [(first s) pos]) (printBoard board)
-                                       (if (< (first currentScore) (first s)) [(first s) pos] currentScore))
-                                     [-100 -1]
-                                     vacancies))
-          :else (cond
-                  (win? board nextSign) [100 -1]
-                  (win? board sign) [-100 -1]
-                  (full? board) [0 -1]
-                  :else (reduce (fn [currentScore pos]
-                                  (let [nextBoard (place board pos sign)]
-                                    (def s (minimax nextBoard nextSign))
-                                    (println "minimize:" (toPrintLetter sign) [(first s) pos]) (printBoard board)
-                                    (if (> (first currentScore) (first s)) [(first s) pos] currentScore)))
-                                [100 -1]
-                                vacancies)))))
+    (cond
+      (win? board nextSign) (if (= sign 2) [-100 -1] [100 -1])
+      (win? board sign) (if (= sign 2) [100 -1] [-100 -1])
+      (full? board) [0 -1]
+      :else (reduce (fn [currentScore pos]
+                      (def nextBoard2 (place board pos sign))
+                      (def s (minimax nextBoard2 nextSign))
+                      ;; (println (if (= sign 2) "maximize:" "minimize:") (toPrintLetter sign) [(first s) pos]) (printBoard board)
+                      (if (compF (first currentScore) (first s)) [(first s) pos] currentScore))
+                    initScore
+                    vacancies))))
 
 (defn aiMove [board sign]
   (def move (minimax board 2))
